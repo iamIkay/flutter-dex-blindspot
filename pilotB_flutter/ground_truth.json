@@ -1,0 +1,60 @@
+{
+  "_note": "Ground truth for the Pilot B test-app pair. 'expected_*' fields are what the source code does and are hypotheses about where it should show up; B4 measures what is actually visible. Do not quote these as results.",
+  "apps": {
+    "native": {"package": "com.johnwogu.pilot.nativeapp", "app_own_prefix": "com.johnwogu.pilot.nativeapp", "apks": ["apks/native.apk", "apks/native_r8.apk"], "r8_mapping": {"native_r8": "mappings/native_r8.mapping.txt"}},
+    "flutter": {"package": "com.johnwogu.pilot.flutter", "app_own_prefix": "com.johnwogu.pilot.flutter", "apks": ["apks/flutter_default.apk", "apks/flutter_obfuscated.apk"], "r8_mapping": {"flutter_default": "mappings/flutter_default.mapping.txt", "flutter_obfuscated": "mappings/flutter_obfuscated.mapping.txt"}, "dart_obfuscation_symbols": "mappings/flutter_obfuscated_debug_info/"}
+  },
+  "behaviours": [
+    {
+      "id": "B1_location",
+      "label": "1. Read location",
+      "permissions": ["android.permission.ACCESS_FINE_LOCATION", "android.permission.ACCESS_COARSE_LOCATION"],
+      "native": {"code": "MainActivity.readLocation", "expected_api": ["Landroid/location/LocationManager;->getCurrentLocation", "Landroid/location/LocationManager;->requestSingleUpdate", "Landroid/app/Activity;->requestPermissions"]},
+      "flutter": {"code": "lib/main.dart _readLocation", "plugin": "geolocator 14.1.2 / geolocator_android 5.2.1 (namespace com.baseflow.geolocator)", "expected_api": ["Lcom/google/android/gms/location/FusedLocationProviderClient;->requestLocationUpdates", "Landroid/location/LocationManager;->requestLocationUpdates", "Landroid/location/LocationManager;->getLastKnownLocation"], "expected_attribution": "plugin"}
+    },
+    {
+      "id": "B2_contacts_count",
+      "label": "2. Count contacts",
+      "permissions": ["android.permission.READ_CONTACTS"],
+      "native": {"code": "MainActivity.readContactsCount", "expected_api": ["Landroid/content/ContentResolver;->query", "Landroid/provider/ContactsContract$Contacts;->CONTENT_URI"]},
+      "flutter": {"code": "lib/main.dart _readContactsCount", "plugin": "flutter_contacts 2.1.0 (namespace co.quis.flutter_contacts)", "expected_api": ["Landroid/content/ContentResolver;->query", "Landroid/provider/ContactsContract$Contacts;->CONTENT_URI"], "expected_attribution": "plugin"}
+    },
+    {
+      "id": "B3_https_post",
+      "label": "3. POST to httpbin",
+      "permissions": ["android.permission.INTERNET"],
+      "strings": ["https://httpbin.org/post"],
+      "native": {"code": "MainActivity.postJson", "expected_api": ["Ljava/net/URL;->openConnection", "Ljava/net/HttpURLConnection;->setRequestMethod", "Ljava/net/HttpURLConnection;->getOutputStream", "Ljava/net/HttpURLConnection;->getResponseCode"], "expected_string_location": "DEX"},
+      "flutter": {"code": "lib/main.dart _postJson", "plugin": "http 1.6.0 (pure Dart; dart:io sockets in the engine, no Java code)", "expected_api": [], "expected_string_location": "libapp.so", "expected_attribution": "none (not in DEX)"}
+    },
+    {
+      "id": "B4_private_file",
+      "label": "4. File write/read",
+      "permissions": [],
+      "strings": ["pilot_file.txt"],
+      "native": {"code": "MainActivity.fileRoundTrip", "expected_api": ["Landroid/content/Context;->getFilesDir", "Ljava/io/File;-><init>"]},
+      "flutter": {"code": "lib/main.dart _fileRoundTrip", "plugin": "path_provider 2.1.6 / path_provider_android 2.3.1 (calls Android APIs from Dart via package:jni; no Java plugin class) + dart:io File", "expected_api": [], "expected_string_location": "libapp.so", "expected_attribution": "none (JNI from libapp.so; Context.getDataDir etc. resolved by name at runtime)"}
+    },
+    {
+      "id": "B5_dummy_key",
+      "label": "5. Show masked key",
+      "permissions": [],
+      "strings": ["PILOT_DUMMY_KEY_123"],
+      "native": {"code": "MainActivity.showMaskedKey", "expected_api": [], "expected_string_location": "DEX"},
+      "flutter": {"code": "lib/main.dart _showMaskedKey", "expected_api": [], "expected_string_location": "libapp.so"}
+    }
+  ],
+  "build": {
+    "flutter": "3.41.2 stable (framework 90673a4eef), Dart 3.11.0, engine 6c0baaebf7",
+    "gradle": "8.14 (wrapper), AGP 8.11.1, Kotlin Gradle plugin 2.2.20",
+    "jdk": "Android Studio JBR 21.0.8",
+    "android": "compileSdk 36, native minSdk 24 / targetSdk 36; Flutter min/target from flutter defaults",
+    "variants": {
+      "flutter_default": "flutter build apk --release (fat APK: arm64-v8a, armeabi-v7a, x86_64; R8 shrinking on by Flutter default)",
+      "flutter_obfuscated": "flutter build apk --release --obfuscate --split-debug-info=build/debug-info",
+      "native": "./gradlew assembleRelease (isMinifyEnabled=false, template default)",
+      "native_r8": "./gradlew assembleRelease -Ppilot.minify=true (R8 on, mirrors Flutter default)"
+    },
+    "signing": "all variants signed with the local debug keystore"
+  }
+}

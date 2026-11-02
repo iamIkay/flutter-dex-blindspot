@@ -1,0 +1,21 @@
+behaviour,variant,sink_category,permissions_declared,n_call_rows,n_call_rows_app_own,attribution_by_name,n_call_rows_app_own_deobf,attribution_deobf,strings,strings_in_dex,strings_in_libapp
+B1_location,native,location,True,2,2,app_own=2,,,,,
+B2_contacts_count,native,contacts,True,1,1,app_own=1,,,,,
+B3_https_post,native,network,True,3,2,app_own=2; other_library=1,,,https://httpbin.org/post,True,False
+B4_private_file,native,file,,25,1,app_own=1; other_library=24,,,pilot_file.txt,True,False
+B5_dummy_key,native,,,0,0,-,,,PILOT_DUMMY_KEY_123,True,False
+B1_location,native_r8,location,True,2,1,app_own=1; unattributable_renamed=1,2.0,app_own=2,,,
+B2_contacts_count,native_r8,contacts,True,1,1,app_own=1,1.0,app_own=1,,,
+B3_https_post,native_r8,network,True,2,2,app_own=2,2.0,app_own=2,https://httpbin.org/post,True,False
+B4_private_file,native_r8,file,,3,1,app_own=1; unattributable_renamed=2,1.0,app_own=1; other_library=2,pilot_file.txt,True,False
+B5_dummy_key,native_r8,,,0,0,-,,,PILOT_DUMMY_KEY_123,True,False
+B1_location,flutter_default,location,True,4,0,unattributable_renamed=4,0.0,mixed:other_library+plugin_framework=1; other_library=1; plugin_framework=2,,,
+B2_contacts_count,flutter_default,contacts,True,63,0,unattributable_renamed=63,0.0,mixed:other_library+plugin_framework=36; plugin_framework=27,,,
+B3_https_post,flutter_default,network,True,0,0,-,,,https://httpbin.org/post,False,True
+B4_private_file,flutter_default,file,,11,0,other_library=1; plugin_framework=1; unattributable_renamed=9,0.0,mixed:other_library+plugin_framework=2; other_library=8; plugin_framework=1,pilot_file.txt,False,True
+B5_dummy_key,flutter_default,,,0,0,-,,,PILOT_DUMMY_KEY_123,False,True
+B1_location,flutter_obfuscated,location,True,4,0,unattributable_renamed=4,0.0,mixed:other_library+plugin_framework=1; other_library=1; plugin_framework=2,,,
+B2_contacts_count,flutter_obfuscated,contacts,True,63,0,unattributable_renamed=63,0.0,mixed:other_library+plugin_framework=36; plugin_framework=27,,,
+B3_https_post,flutter_obfuscated,network,True,0,0,-,,,https://httpbin.org/post,False,True
+B4_private_file,flutter_obfuscated,file,,11,0,other_library=1; plugin_framework=1; unattributable_renamed=9,0.0,mixed:other_library+plugin_framework=2; other_library=8; plugin_framework=1,pilot_file.txt,False,True
+B5_dummy_key,flutter_obfuscated,,,0,0,-,,,PILOT_DUMMY_KEY_123,False,True

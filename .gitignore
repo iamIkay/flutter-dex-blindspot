@@ -1,0 +1,13 @@
+.env
+.venv/
+cache/
+data/raw/
+*.apk
+*.aab
+__pycache__/
+*.pyc
+.DS_Store
+build/
+.dart_tool/
+.gradle/
+local.properties

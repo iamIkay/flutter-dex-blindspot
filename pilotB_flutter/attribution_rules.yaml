@@ -1,0 +1,164 @@
+# Pilot B attribution and feature rules, read by 02_extract_features.py.
+# Precedence for a calling class: renamed -> app_own -> plugin_framework -> other_library.
+
+renamed:
+  # A class is renamed if every package segment and its simple name (text before
+  # the first '$') match this pattern, or if it is in the default package (R8
+  # -repackageclasses moves renamed classes there, with names like `qs0`).
+  # APK-level flag: share of renamed classes >= threshold.
+  segment_regex: '^[A-Za-z0-9_$]{1,2}$'
+  apk_threshold: 0.5
+  sensitivity_thresholds: [0.3, 0.7]
+
+app_own:
+  # Prefixes come from the applicationId, the Application class and the launcher
+  # activities (when they are not framework/plugin classes), each cut to its
+  # first `max_segments` package segments.
+  max_segments: 3
+  # Application/launcher classes in these namespaces are bundled libraries
+  # (e.g. android.support.multidex.MultiDexApplication), never app-own evidence.
+  exclude_prefixes: [android., androidx., com.google., kotlin., kotlinx., java., javax.]
+
+plugin_framework:
+  # Flutter engine/embedding and known plugin namespaces. Per APK, the packages of
+  # classes referenced by io.flutter.plugins.GeneratedPluginRegistrant are added
+  # (when their names survived R8).
+  prefixes:
+    - io.flutter.
+    - dev.fluttercommunity.
+    - com.baseflow.
+    - com.github.dart_lang.
+    - co.quis.flutter_contacts.
+  registrant_class: 'Lio/flutter/plugins/GeneratedPluginRegistrant;'
+
+# Anything named that is neither app_own nor plugin_framework is other_library
+# (androidx.*, com.google.*, kotlin.*, okhttp3.*, ...).
+
+sensitive_api:
+  # Framework sinks: "Lclass;->method". Class "*" matches any receiver (Context
+  # methods are often invoked on the app's own Activity subclass).
+  location:
+    - 'Landroid/location/LocationManager;->getLastKnownLocation'
+    - 'Landroid/location/LocationManager;->requestLocationUpdates'
+    - 'Landroid/location/LocationManager;->requestSingleUpdate'
+    - 'Landroid/location/LocationManager;->getCurrentLocation'
+    - 'Landroid/location/LocationManager;->addGpsStatusListener'
+    - 'Landroid/location/LocationManager;->registerGnssStatusCallback'
+  contacts:
+    - 'Landroid/provider/ContactsContract$Contacts;->openContactPhotoInputStream'
+    - 'Landroid/provider/ContactsContract$Contacts;->getLookupUri'
+    - 'Landroid/provider/ContactsContract$Contacts;->lookupContact'
+  network:
+    - 'Ljava/net/URL;->openConnection'
+    - 'Ljava/net/URL;->openStream'
+    # The same call is referenced through whichever class the source code typed
+    # (R8 may rewrite it to the declaring class), so all three classes are listed.
+    - 'Ljava/net/URLConnection;->connect'
+    - 'Ljava/net/URLConnection;->getInputStream'
+    - 'Ljava/net/URLConnection;->getOutputStream'
+    - 'Ljava/net/HttpURLConnection;->connect'
+    - 'Ljava/net/HttpURLConnection;->getInputStream'
+    - 'Ljava/net/HttpURLConnection;->getOutputStream'
+    - 'Ljavax/net/ssl/HttpsURLConnection;->connect'
+    - 'Ljavax/net/ssl/HttpsURLConnection;->getInputStream'
+    - 'Ljavax/net/ssl/HttpsURLConnection;->getOutputStream'
+    - 'Ljava/net/Socket;-><init>'
+    - 'Ljava/net/Socket;->connect'
+    - 'Ljavax/net/ssl/SSLSocketFactory;->createSocket'
+    - 'Landroid/webkit/WebView;->loadUrl'
+  file:
+    - 'Ljava/io/FileOutputStream;-><init>'
+    - 'Ljava/io/FileInputStream;-><init>'
+    - 'Ljava/io/FileWriter;-><init>'
+    - 'Ljava/io/FileReader;-><init>'
+    - 'Ljava/io/RandomAccessFile;-><init>'
+    - '*;->openFileOutput'
+    - '*;->openFileInput'
+    - '*;->getFilesDir'
+    - '*;->getExternalFilesDir'
+    - 'Landroid/os/Environment;->getExternalStorageDirectory'
+  crypto:
+    - 'Ljavax/crypto/Cipher;->getInstance'
+    - 'Ljavax/crypto/Cipher;->doFinal'
+    - 'Ljavax/crypto/Mac;->getInstance'
+    - 'Ljavax/crypto/spec/SecretKeySpec;-><init>'
+    - 'Ljava/security/MessageDigest;->getInstance'
+    - 'Ljava/security/KeyStore;->getInstance'
+  telephony:
+    - 'Landroid/telephony/TelephonyManager;->getDeviceId'
+    - 'Landroid/telephony/TelephonyManager;->getImei'
+    - 'Landroid/telephony/TelephonyManager;->getSubscriberId'
+    - 'Landroid/telephony/TelephonyManager;->getLine1Number'
+    - 'Landroid/telephony/TelephonyManager;->getSimSerialNumber'
+    - 'Landroid/telephony/TelephonyManager;->getNetworkOperator'
+    - 'Landroid/telephony/TelephonyManager;->listen'
+  sms:
+    - 'Landroid/telephony/SmsManager;->sendTextMessage'
+    - 'Landroid/telephony/SmsManager;->sendMultipartTextMessage'
+    - 'Landroid/telephony/SmsManager;->sendDataMessage'
+  camera:
+    - 'Landroid/hardware/Camera;->open'
+    - 'Landroid/hardware/camera2/CameraManager;->openCamera'
+  microphone:
+    - 'Landroid/media/AudioRecord;-><init>'
+    - 'Landroid/media/MediaRecorder;->setAudioSource'
+  reflection:
+    - 'Ljava/lang/Class;->forName'
+    - 'Ljava/lang/Class;->getMethod'
+    - 'Ljava/lang/Class;->getDeclaredMethod'
+    - 'Ljava/lang/reflect/Method;->invoke'
+  dynamic_loading:
+    - 'Ldalvik/system/DexClassLoader;-><init>'
+    - 'Ldalvik/system/PathClassLoader;-><init>'
+    - 'Ldalvik/system/InMemoryDexClassLoader;-><init>'
+    - 'Ljava/lang/System;->loadLibrary'
+    - 'Ljava/lang/System;->load'
+    - 'Ljava/lang/Runtime;->exec'
+
+sensitive_fields:
+  # Static reads (sget*) of these classes' fields, e.g. ContactsContract.Contacts.CONTENT_URI.
+  # androguard keeps no xrefs for external fields, so these come from a bytecode scan.
+  contacts: ['Landroid/provider/ContactsContract']
+  sms: ['Landroid/provider/Telephony$Sms']
+  call_log: ['Landroid/provider/CallLog']
+  calendar: ['Landroid/provider/CalendarContract']
+
+content_uri_strings:
+  # const-string content URIs, attributed through string xrefs.
+  contacts: '^content://(com\.android\.)?contacts'
+  sms: '^content://(sms|mms)'
+  call_log: '^content://call_log'
+  calendar: '^content://com\.android\.calendar'
+
+# Dangerous permissions and the sensitive categories that would use them; for the
+# "requested dangerous permission without an app-own call site" metric.
+# Permissions not listed here are reported as unmapped.
+permission_categories:
+  android.permission.ACCESS_FINE_LOCATION: [location]
+  android.permission.ACCESS_COARSE_LOCATION: [location]
+  android.permission.ACCESS_BACKGROUND_LOCATION: [location]
+  android.permission.READ_CONTACTS: [contacts]
+  android.permission.WRITE_CONTACTS: [contacts]
+  android.permission.READ_SMS: [sms]
+  android.permission.SEND_SMS: [sms]
+  android.permission.RECEIVE_SMS: [sms]
+  android.permission.READ_PHONE_STATE: [telephony]
+  android.permission.READ_PHONE_NUMBERS: [telephony]
+  android.permission.CAMERA: [camera]
+  android.permission.RECORD_AUDIO: [microphone]
+  android.permission.READ_CALL_LOG: [call_log]
+  android.permission.WRITE_CALL_LOG: [call_log]
+  android.permission.READ_CALENDAR: [calendar]
+  android.permission.WRITE_CALENDAR: [calendar]
+
+strings:
+  min_len: 6  # like `strings -n 6`
+  url: 'https?://[A-Za-z0-9\-._~:/?#\[\]@!$&''()*+,;=%]+'
+  dart_package: '^package:[A-Za-z0-9_]+/'
+  key_like:
+    google_api_key: 'AIza[0-9A-Za-z\-_]{35}'
+    aws_access_key: 'AKIA[0-9A-Z]{16}'
+    stripe_key: '(sk|pk)_(live|test)_[0-9A-Za-z]{16,}'
+    github_token: 'gh[pousr]_[0-9A-Za-z]{36}'
+    slack_token: 'xox[baprs]-[0-9A-Za-z\-]{10,}'
+    named_key: '(?i)\b[a-z0-9_]*(api|secret|access|private)[_-]?key[a-z0-9_]*\b'

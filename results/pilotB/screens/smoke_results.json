@@ -1,0 +1,30 @@
+{
+  "native": {
+    "1. Read location": "1. Read location → 49.2606, -123.2460",
+    "2. Count contacts": "2. Count contacts → 3 contacts",
+    "3. POST to httpbin": "3. POST to httpbin → HTTP 200",
+    "4. File write/read": "4. File write/read → read back: pilot 2026-11-01T22:32:11.053162Z",
+    "5. Show masked key": "5. Show masked key → PILO************123"
+  },
+  "native_r8": {
+    "1. Read location": "1. Read location → 49.2606, -123.2460",
+    "2. Count contacts": "2. Count contacts → 3 contacts",
+    "3. POST to httpbin": "3. POST to httpbin → HTTP 200",
+    "4. File write/read": "4. File write/read → read back: pilot 2026-11-01T22:32:58.219980Z",
+    "5. Show masked key": "5. Show masked key → PILO************123"
+  },
+  "flutter_default": {
+    "1. Read location": "1. Read location → 49.2606, -123.2460",
+    "2. Count contacts": "2. Count contacts → 3 contacts",
+    "3. POST to httpbin": "3. POST to httpbin → HTTP 200",
+    "4. File write/read": "4. File write/read → read back: pilot 2026-11-01T23:33:46.147030",
+    "5. Show masked key": "5. Show masked key → PILO************123"
+  },
+  "flutter_obfuscated": {
+    "1. Read location": "1. Read location → 49.2606, -123.2460",
+    "2. Count contacts": "2. Count contacts → 3 contacts",
+    "3. POST to httpbin": "3. POST to httpbin → HTTP 200",
+    "4. File write/read": "4. File write/read → read back: pilot 2026-11-01T23:34:34.168504",
+    "5. Show masked key": "5. Show masked key → PILO************123"
+  }
+}

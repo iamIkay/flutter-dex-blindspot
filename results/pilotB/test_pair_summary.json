@@ -1,0 +1,133 @@
+{
+  "dex_sha256": {
+    "native": "dd6fc60a7b8cc88537dbe907e4bc13c5f7e6cbdfd0dcd3dd9c323a5129d6068f",
+    "native_r8": "024547fd15d2481933a6fc521bd43be8c65db0fde959785cccccf4b8a60c69fd",
+    "flutter_default": "6930ff60bc3633ce3355d2343eddc1ebcc3094ca252f91aff7d55db69edd6490",
+    "flutter_obfuscated": "6930ff60bc3633ce3355d2343eddc1ebcc3094ca252f91aff7d55db69edd6490"
+  },
+  "libapp_bytes": {
+    "native": 0,
+    "native_r8": 0,
+    "flutter_default": 3736496,
+    "flutter_obfuscated": 3081136
+  },
+  "dex_bytes": {
+    "native": 2132284,
+    "native_r8": 40096,
+    "flutter_default": 889488,
+    "flutter_obfuscated": 889488
+  },
+  "dex_code_bytes": {
+    "native": {
+      "app_own": 2426,
+      "plugin_framework": 0,
+      "other_library": 530252,
+      "unattributable_renamed": 0
+    },
+    "native_r8": {
+      "app_own": 2088,
+      "plugin_framework": 0,
+      "other_library": 0,
+      "unattributable_renamed": 7128
+    },
+    "flutter_default": {
+      "app_own": 8,
+      "plugin_framework": 39764,
+      "other_library": 16516,
+      "unattributable_renamed": 366340
+    },
+    "flutter_obfuscated": {
+      "app_own": 8,
+      "plugin_framework": 39764,
+      "other_library": 16516,
+      "unattributable_renamed": 366340
+    }
+  },
+  "share_renamed": {
+    "native": 0.0,
+    "native_r8": 0.953,
+    "flutter_default": 0.837,
+    "flutter_obfuscated": 0.837
+  },
+  "n_libapp_strings": {
+    "native": 0,
+    "native_r8": 0,
+    "flutter_default": 10746,
+    "flutter_obfuscated": 5037
+  },
+  "n_dart_packages": {
+    "native": 0,
+    "native_r8": 0,
+    "flutter_default": 23,
+    "flutter_obfuscated": 2
+  },
+  "libapp_has_app_dart_path": {
+    "native": false,
+    "native_r8": false,
+    "flutter_default": true,
+    "flutter_obfuscated": false
+  },
+  "libapp_has_app_function_names": {
+    "native": {
+      "_readLocation": false,
+      "_postJson": false,
+      "_showMaskedKey": false
+    },
+    "native_r8": {
+      "_readLocation": false,
+      "_postJson": false,
+      "_showMaskedKey": false
+    },
+    "flutter_default": {
+      "_readLocation": true,
+      "_postJson": true,
+      "_showMaskedKey": true
+    },
+    "flutter_obfuscated": {
+      "_readLocation": false,
+      "_postJson": false,
+      "_showMaskedKey": false
+    }
+  },
+  "dangerous_no_appown_site": {
+    "native": "nan",
+    "native_r8": "nan",
+    "flutter_default": "android.permission.ACCESS_COARSE_LOCATION;android.permission.ACCESS_FINE_LOCATION;android.permission.READ_CONTACTS",
+    "flutter_obfuscated": "android.permission.ACCESS_COARSE_LOCATION;android.permission.ACCESS_FINE_LOCATION;android.permission.READ_CONTACTS"
+  },
+  "n_drebin": {
+    "native": {
+      "manifest": 4,
+      "app_own": 9,
+      "plugin_framework": 0,
+      "other_library": 7,
+      "unattributable_renamed": 0,
+      "unknown": 1
+    },
+    "native_r8": {
+      "manifest": 4,
+      "app_own": 8,
+      "plugin_framework": 0,
+      "other_library": 0,
+      "unattributable_renamed": 5,
+      "unknown": 0
+    },
+    "flutter_default": {
+      "manifest": 5,
+      "app_own": 2,
+      "plugin_framework": 8,
+      "other_library": 8,
+      "unattributable_renamed": 20,
+      "unknown": 0
+    },
+    "flutter_obfuscated": {
+      "manifest": 5,
+      "app_own": 2,
+      "plugin_framework": 8,
+      "other_library": 8,
+      "unattributable_renamed": 20,
+      "unknown": 0
+    }
+  },
+  "dex_identical_default_vs_obfuscated": true
+}

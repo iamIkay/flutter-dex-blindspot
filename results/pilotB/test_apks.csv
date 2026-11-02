@@ -1,0 +1,5 @@
+variant,apk,bytes,sha256,built_at
+flutter_default,pilotB_flutter/apks/flutter_default.apk,45184907,01b767597ddbdfdd11736201a1366cabbeaae37c66caabfdad78409f2c1a7133,2026-11-01T22:31:20Z
+flutter_obfuscated,pilotB_flutter/apks/flutter_obfuscated.apk,43136907,0a68877faf078992366cec136e5592858bb405ce0ec53502eec5c0790e76e5ff,2026-11-01T22:31:38Z
+native,pilotB_flutter/apks/native.apk,657056,e127da00c3e6765dbc0ceb5114fac7a60bbb7e1450d56f211fbe81ee6bd97168,2026-11-01T22:24:35Z
+native_r8,pilotB_flutter/apks/native_r8.apk,36620,d8f51b6668013baf2f275dcb43281deaf016329eb692af4d49d86da289bfb439,2026-11-01T22:24:24Z

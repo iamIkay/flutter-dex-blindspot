@@ -1,0 +1,50 @@
+== download
+flutter  size:Q1                      15/15
+flutter  size:Q2                      15/15
+flutter  size:Q3                      15/15
+flutter  size:Q4                      15/15
+native   cat:Internet                 6/6
+native   cat:Multimedia               4/4
+native   cat:Science & Education      3/3
+native   cat:Connectivity             3/3
+native   cat:Puzzle Game              3/3
+native   cat:Finance Manager          2/2
+native   cat:Reading                  2/2
+native   cat:Note                     2/2
+native   cat:Casual Game              2/2
+native   cat:Sports & Health          2/2
+native   cat:Game Helper              2/2
+native   cat:Diet                     1/1
+native   cat:Development              1/1
+native   cat:Habit Tracker            1/1
+native   cat:Password & 2FA           1/1
+native   cat:Navigation               1/1
+native   cat:Calendar & Agenda        1/1
+native   cat:Security                 1/1
+native   cat:Health Manager           1/1
+native   cat:Task                     1/1
+native   cat:Card Game                1/1
+native   cat:Local Media Player       1/1
+native   cat:Calculator               1/1
+native   cat:Board Game               1/1
+native   cat:Wallet                   1/1
+native   cat:Cloud Storage & File Sync 1/1
+native   cat:Remote Controller        1/1
+native   cat:AI Chat                  1/1
+native   cat:Religion                 1/1
+native   cat:Pass Wallet              1/1
+native   cat:Email                    1/1
+native   cat:Meditation               1/1
+native   cat:Download                 1/1
+native   cat:Market & Price           1/1
+native   cat:Audiobook                1/1
+native   cat:Alarm Clock              1/1
+native   cat:File Transfer            1/1
+native   cat:Inventory                1/1
+native   cat:Party Game               1/1
+native   cat:Gallery                  1/1
+                      n        gb
+framework_confirmed              
+flutter              60  2.109172
+native               60  0.555288
+excluded: 0

@@ -1,0 +1,18 @@
+{
+  "index-v2.json": {
+    "path": "/Users/johnwogu/Documents/Research/pilot/data/raw/fdroid/index-v2.json",
+    "sha256": "214b029d8b4b18e7df3f8eb767cb26cc4422c17a78cb52f094a71f528c357beb",
+    "bytes": 70359050,
+    "url": "https://f-droid.org/repo/index-v2.json",
+    "downloaded_at": "2026-11-01T22:43:44Z",
+    "repo_timestamp_ms": 1793418664799,
+    "packages": 4923
+  },
+  "fdroiddata-metadata.tar.gz": {
+    "path": "/Users/johnwogu/Documents/Research/pilot/data/raw/fdroid/fdroiddata-metadata.tar.gz",
+    "sha256": "bff2871f97c40bcb38281668ba8996affe5f5f2bfef0c0b6317a136900d1d7ce",
+    "bytes": 30034769,
+    "url": "https://gitlab.com/fdroid/fdroiddata/-/archive/master/fdroiddata-master.tar.gz?path=metadata",
+    "downloaded_at": "2026-11-01T22:43:51Z"
+  }
+}
